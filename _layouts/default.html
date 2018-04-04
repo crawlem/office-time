@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+	<title>crawleyweb | {{ site.title }} | {{ page.title }}</title>
+
+	<meta name=viewport content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Fjalla+One|Open+Sans" rel="stylesheet">
+	<style>
+		body {
+			font-family: "Open Sans", sans-serif;
+		}
+
+		nav .nav-item {
+			margin-left: 1em;
+		}
+
+		.card-text, .card-footer {
+			font-family: 'Fjalla One', sans-serif;
+		}
+
+		.card-text {
+			font-size: 3em;
+		}
+
+		.card-footer {
+			font-size: .9em;
+			font-weight: 100;
+			padding: .9em 0;
+			background-color: transparent;
+		}
+	</style>
+</head>
+<body>
+	<nav id="navbar" class="navbar navbar-light bg-light fixed-top">
+		<a class="navbar-brand" href="/">crawleyweb</a>
+	    <ul class="nav nav-pills">
+	    	{% assign years = '' | split: '' %}
+	    	{% for col in site.collections %}
+	    	{% if col.year %}
+	    	{% assign years = years | push: col %}
+	    	{% endif %}
+	    	{% endfor %}
+
+	    	{% for year in years %}
+	    		<li class="nav-item"><a class="nav-link{% if year.year == page.year %} active{% endif %}" href="/{{ year.year }}/">{{ year.year }}</a></li>
+	    	{% endfor %}
+	    </ul>
+	</nav>
+
+	<div class="jumbotron">
+		<h1 class="display-4">{{ site.title }}</h1>
+		<p class="lead">Just for kicks, I've been tracking my comings and goings</p>
+		<hr class="my-4">
+		<p>For starters this is quite basic - just simple arrival and departure times at my usual work office. I used the excellent <a href="https://ifttt.com">If This Then That</a> app to record the data. <a href="http://getbootstrap.com">Bootstrap</a>, <a href="https://jekyllrb.com/">Jekyll</a> and <a href="https://www.ruby-lang.org/en/">Ruby</a> produce this site.</p>
+	</div>
+
+	<article class="container">
+		{% if page.year %}
+		<div class="row">
+			<h2 class="col-sm-2">{{ page.title }}</h2>
+			<ul class="col-lg-10 nav justify-content-end nav-pills">
+				<li class="nav-item"><a class="nav-link{% if page.month == nil %} active{% endif %}" href="/{{ page.year }}/">Total</a></li>
+
+				{% for c in years %}
+				{% if c.year == page.year %}
+				{% assign months = c %}
+				{% endif %}
+				{% endfor %}
+				{% assign nav = months.docs | sort: "month" %}
+				{% for month in nav %}
+				{% if month.month %}
+				<li class="nav-item"><a class="nav-link{% if page.month == month.month %} active{% endif %}" href="{{ month.month }}.html">{{ month.month }}</a></li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+		<hr>
+		{% endif %}
+		<div class="card-deck">
+		    <div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Days in the office</h5>
+					<p class="card-text">{{ page.daysInOffice }}</p>
+					<p class="card-footer">Out of a possible {{ page.possibleDays }}</p>
+				</div>
+		  	</div>
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Hours in the office</h5>
+					<p class="card-text">{{ page.hoursInOffice }}</p>
+					<p class="card-footer">Out of a possible {{ page.possibleHours }}</p>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Busiest weekday</h5>
+					<p class="card-text">{{ page.busiestDay }}</p>
+					<canvas id="2018-dayofweek" width="50" height="50"></canvas>
+				</div>
+			</div>
+			<!-- <div class="card">
+				<div class="card-body">
+				<h5 class="card-title">Longest day</h5>
+				<p class="card-text">{{ page.longestDay }}</p>
+				<p class="card-footer">Average day was {{ page.averageDay }}</p>
+				</div>
+			</div> -->
+		</div>
+	</article>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+	<script>
+	var ctx = document.getElementById("2018-dayofweek");
+	var myChart = new Chart(ctx, {
+	    type: 'doughnut',
+	    data: {
+	        labels: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+	        datasets: [{
+	            label: '# of hours',
+	            data: [{{ page.hoursMon }}, {{ page.hoursTue }}, {{ page.hoursWed }}, {{ page.hoursThu }}, {{ page.hoursFri }}],
+	            backgroundColor: [
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)'
+	            ],
+	            borderColor: [
+	                'rgba(255,99,132,1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)'
+	            ],
+	            borderWidth: 1
+	        }]
+	    }
+	});
+	</script>
+</body>
+</html>
