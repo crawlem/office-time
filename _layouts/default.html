@@ -37,7 +37,7 @@
 </head>
 <body>
 	<nav id="navbar" class="navbar navbar-light bg-light fixed-top">
-		<a class="navbar-brand" href="/">crawleyweb</a>
+		<a class="navbar-brand" href="{% if jekyll.environment == "production" %}{{ site.baseurl }}{% endif %}/">crawleyweb</a>
 	    <ul class="nav nav-pills">
 	    	{% assign years = '' | split: '' %}
 	    	{% for col in site.collections %}
@@ -47,7 +47,7 @@
 	    	{% endfor %}
 
 	    	{% for year in years %}
-	    		<li class="nav-item"><a class="nav-link{% if year.year == page.year %} active{% endif %}" href="/{{ year.year }}/">{{ year.year }}</a></li>
+	    		<li class="nav-item"><a class="nav-link{% if year.year == page.year %} active{% endif %}" href="{% if jekyll.environment == "production" %}{{ site.baseurl }}{% endif %}/{{ year.year }}/">{{ year.year }}</a></li>
 	    	{% endfor %}
 	    </ul>
 	</nav>
@@ -65,7 +65,7 @@
 		<div class="row">
 			<h2 class="col-sm-2">{{ page.title }}</h2>
 			<ul class="col-lg-10 nav justify-content-end nav-pills">
-				<li class="nav-item"><a class="nav-link{% if page.month == nil %} active{% endif %}" href="/{{ page.year }}/">Total</a></li>
+				<li class="nav-item"><a class="nav-link{% if page.month == nil %} active{% endif %}" href="{% if jekyll.environment == "production" %}{{ site.baseurl }}{% endif %}/{{ page.year }}/">Total</a></li>
 
 				{% for c in years %}
 				{% if c.year == page.year %}
