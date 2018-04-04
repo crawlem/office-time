@@ -37,7 +37,7 @@
 </head>
 <body>
 	<nav id="navbar" class="navbar navbar-light bg-light fixed-top">
-		<a class="navbar-brand" href="{% if jekyll.environment == "production" %}{{ site.baseurl }}{% endif %}/">crawleyweb</a>
+		<a class="navbar-brand" href="{{ site.baseurl }}/">crawleyweb</a>
 	    <ul class="nav nav-pills">
 	    	{% assign years = '' | split: '' %}
 	    	{% for col in site.collections %}
@@ -47,7 +47,7 @@
 	    	{% endfor %}
 
 	    	{% for year in years %}
-	    		<li class="nav-item"><a class="nav-link{% if year.year == page.year %} active{% endif %}" href="{% if jekyll.environment == "production" %}{{ site.baseurl }}{% endif %}/{{ year.year }}/">{{ year.year }}</a></li>
+	    		<li class="nav-item"><a class="nav-link{% if year.year == page.year %} active{% endif %}" href="{{ site.baseurl }}/{{ year.year }}/">{{ year.year }}</a></li>
 	    	{% endfor %}
 	    </ul>
 	</nav>
@@ -56,8 +56,7 @@
 		<h1 class="display-4">{{ site.title }}</h1>
 		<p class="lead">Just for kicks, I've been tracking my comings and goings</p>
 		<hr class="my-4">
-		<p>For starters this is quite basic - just simple arrival and departure times at my usual work office. I used the excellent <a href="https://ifttt.com">If This Then That</a> app to record the data. <a href="http://getbootstrap.com">Bootstrap</a>, <a href="https://jekyllrb.com/">Jekyll</a> and <a href="https://www.ruby-lang.org/en/">Ruby</a> produce this site.</p>
-		<p>Tracking is quite granular, so going out for coffee or lunch counts as time <strong>not</strong> spent in the office building itself.</p>
+		<p>For starters this is quite basic - just simple arrival and departure times at my usual work office. Leaving the office building for coffee or lunch, as well as public holidays and vacation, is accounted for. Time spent in other offices or locations is also not counted.</p>
 	</div>
 
 	<article class="container">
@@ -65,7 +64,7 @@
 		<div class="row">
 			<h2 class="col-sm-2">{{ page.title }}</h2>
 			<ul class="col-lg-10 nav justify-content-end nav-pills">
-				<li class="nav-item"><a class="nav-link{% if page.month == nil %} active{% endif %}" href="{% if jekyll.environment == "production" %}{{ site.baseurl }}{% endif %}/{{ page.year }}/">Total</a></li>
+				<li class="nav-item"><a class="nav-link{% if page.month == nil %} active{% endif %}" href="{{ site.baseurl }}/{{ page.year }}/">Total</a></li>
 
 				{% for c in years %}
 				{% if c.year == page.year %}
@@ -113,6 +112,19 @@
 			</div> -->
 		</div>
 	</article>
+
+	<nav class="navbar navbar-expand fixed-bottom navbar-light bg-light">
+		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+			<li class="nav-item">Made with</li>
+			<li class="nav-item"><a href="https://jekyllrb.com/">Jekyll</a></li>
+			<li class="nav-item"><a href="http://getbootstrap.com/">Bootstrap</a></li>
+			<li class="nav-item"><a href="https://www.ruby-lang.org/en/">Ruby</a></li>
+			<li class="nav-item"><a href="https://ifttt.com/">IFFT</a></li>
+		</ul>
+		<ul class="navbar-nav my-2 my-lg-0">
+			<li class="nav-item">&copy; Mark Crawley 2018</li>
+		</ul>
+	</nav>
 
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
