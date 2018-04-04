@@ -31,7 +31,9 @@ def get_start(earliest, year=nil, month=nil)
 			startdate = Time.new(year, 1, 1, 0, 0, 0)
 		end
 	else
-		startdate = Time.new(year, month, 1, 0, 0, 0)
+		if Date.new(year, month, 1) > earliest
+			startdate = Time.new(year, month, 1, 0, 0, 0)
+		end
 	end
 	return startdate
 end
@@ -57,7 +59,7 @@ end
 def business_days(start_date, end_date)
 	s = Date.parse(start_date.to_s)
 	e = Date.parse(end_date.to_s)
-	days = s.business_days_until(e)
+	days = s.business_days_until(e) + 1
 	return days
 end
 
@@ -210,7 +212,7 @@ CSV.foreach('/Users/crawleym/Downloads/locations.csv') do |row|
 
 	if flag == 'Arrived' 
 		arrived = date
-		if left != '' and date.to_date - left.to_date > 0
+		if left == '' or date.to_date - left.to_date > 0
 			years[date.year]['days'] += 1
 			years[date.year]['months'][date.month]['days'] += 1
 		end

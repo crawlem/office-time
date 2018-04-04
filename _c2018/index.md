@@ -4,7 +4,7 @@ title: 2018
 year: 2018
 month: 
 daysInOffice: 38
-possibleDays: 59
+possibleDays: 60
 hoursInOffice: 294
 possibleHours: 480
 busiestDay: Wednesday

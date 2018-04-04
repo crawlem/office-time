@@ -3,8 +3,8 @@ layout: default
 title: 2017
 year: 2017
 month: 
-daysInOffice: 82
-possibleDays: 143
+daysInOffice: 83
+possibleDays: 144
 hoursInOffice: 805
 possibleHours: 1144
 busiestDay: Wednesday

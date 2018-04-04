@@ -3,8 +3,8 @@ layout: default
 title: 
 year: 
 month: 
-daysInOffice: 120
-possibleDays: 202
+daysInOffice: 121
+possibleDays: 203
 hoursInOffice: 1099
 possibleHours: 1624
 busiestDay: Wednesday
