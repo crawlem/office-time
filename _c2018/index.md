@@ -6,7 +6,7 @@ month:
 daysInOffice: 38
 possibleDays: 60
 hoursInOffice: 294
-possibleHours: 480
+possibleHours: 450
 busiestDay: Wednesday
 hoursMon: 62
 hoursTue: 62

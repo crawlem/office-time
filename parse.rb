@@ -82,6 +82,9 @@ def output_file(days, hours, weekdays, business_days, business_hours, year=nil, 
 	end
 end
 
+BusinessTime::Config.beginning_of_workday = "9:00 am"
+BusinessTime::Config.end_of_workday = "4:30 pm"
+
 # Public holidays
 BusinessTime::Config.holidays << Date.parse("29 May 2017")
 BusinessTime::Config.holidays << Date.parse("28 Aug 2017")
