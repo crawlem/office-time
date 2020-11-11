@@ -3,16 +3,16 @@ layout: default
 title: 
 year: 
 month: 
-daysInOffice: 122
-possibleDays: 204
-hoursInOffice: 1107
-possibleHours: 1530
+daysInOffice: 425
+possibleDays: 869
+hoursInOffice: 3554
+possibleHours: 6513
 busiestDay: Wednesday
-hoursMon: 206
-hoursTue: 204
-hoursWed: 356
-hoursThu: 219
-hoursFri: 123
+hoursMon: 740
+hoursTue: 804
+hoursWed: 864
+hoursThu: 837
+hoursFri: 300
 longestDay: 11 hours
 averageDay: 7 hours
 ---

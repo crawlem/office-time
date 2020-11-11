@@ -43,6 +43,16 @@ exclude:
   - parse.rb
 
 collections:
+  c2020:
+    year: 2020
+    output: true
+    permalink: /2020/:title
+
+  c2019:
+    year: 2019
+    output: true
+    permalink: /2019/:title
+
   c2018:
     year: 2018
     output: true

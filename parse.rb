@@ -141,8 +141,13 @@ left = ''
 earliest = Time.new
 latest = Time.new
 
+if ARGV.length < 1
+	puts "Please pass the CSV filename on the command line e.g. ruby parse.rb '/mnt/c/Users/crawl/Downloads/Location tracking - Sheet1.csv'"
+	exit
+end
+
 # Parse the CSV file
-CSV.foreach('/Users/crawleym/Downloads/locations.csv') do |row|
+CSV.foreach(ARGV[0]) do |row|
 	date = Time.strptime(row[0], "%B %d, %Y at %H:%M%p")
 	flag = row[1].partition(" ").first
 	
